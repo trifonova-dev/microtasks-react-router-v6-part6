@@ -1,10 +1,19 @@
 import {adidasArr} from "./Adidas";
 import {useParams} from "react-router-dom";
+import type {ShoeItemType} from "./types";
+import {pumaArr} from "./Puma";
+
+const brandArrays: Record<string, ShoeItemType[]> = {
+    adidas: adidasArr,
+    puma: pumaArr
+}
 
 export const Model = () => {
-    const {id} = useParams()
+    const {brand, id} = useParams()
 
-    const currentShoe = adidasArr.find(shoe => shoe.id === id)
+    const currentArr = brandArrays[brand ?? '']
+    const currentShoe = currentArr.find(shoe => shoe.id === id)
+
     if (!currentShoe) {
         return <span>Model not found</span>
     }
